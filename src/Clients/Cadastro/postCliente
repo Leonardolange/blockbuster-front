@@ -1,0 +1,59 @@
+import headerPadrao from '../../services/ApiHeader';
+import urlPadrao from '../../services/ApiUrl';
+import axios from "axios";
+import React from "react";
+
+export default function AppPost() {
+  const [post, setPost] = React.useState(null);
+
+  React.useEffect(() => {
+    axios.get(`${urlPadrao}Clients/1`).then((response) => {
+      setPost(response.data);
+    });
+  }, []);
+
+  function createPost() {
+    axios
+      .post({urlPadrao}/Clients, {
+        //title: "Hello World!",
+        body: JSON.stringify({
+            id: 6,
+            name: 'ZE',
+            cpf: '454545',
+            birthDate: '01/01/2022',
+          })
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
+  }
+
+  if (!post) return "No post!"
+
+  return (
+    <div>
+      <h1>{post.title}</h1>
+      <p>{post.body}</p>
+      <button onclick={createPost}>Create Post</button>
+    </div>
+  );
+}
+
+/* const  onPostCliente() = {
+fetch(urlPadrao, {
+  method: 'POST',
+  body: JSON.stringify({
+    id: 1,
+    name: 'ZE',
+    cpf: '454545',
+    birthDate: 1,
+  }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+})
+  .then((response) => response.json())
+  .then((json) => console.log(json))
+};
+
+  export default onPostCliente; */
